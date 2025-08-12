@@ -34,11 +34,12 @@ templates = Jinja2Templates(directory=str(templates_dir))
 
 
 @app.get("/", response_class=HTMLResponse)
-async def read_root(request: Request):
-    """Root endpoint with basic info."""
+async def root(request: Request):
+    """Root endpoint - returns a simple HTML page."""
     return templates.TemplateResponse(
+        request,
         "index.html",
-        {"request": request, "title": "TeamFlow - AI Project Management Assistant"}
+        {"title": "TeamFlow - AI Project Management Assistant"}
     )
 
 
