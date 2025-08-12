@@ -2,6 +2,14 @@
 
 An AI-powered project management assistant that integrates with GitHub, Jira, and Slack to provide intelligent insights about development workflows.
 
+## 🔒 Security First
+
+This project implements comprehensive security measures:
+- **Automated Security Scanning**: GitHub Actions with Bandit and Safety
+- **Pre-commit Hooks**: Prevent commits with security issues
+- **Environment Protection**: All sensitive data properly secured
+- **Dependency Monitoring**: Regular vulnerability checks
+
 ## Features
 
 - **Multi-platform Integration**: Connect GitHub repositories, Jira projects, and Slack workspaces
@@ -27,7 +35,24 @@ An AI-powered project management assistant that integrates with GitHub, Jira, an
 - PostgreSQL 16+ with pgvector extension
 - Poetry for dependency management
 
-### Installation
+### Secure Setup
+
+Use our automated setup script for a secure development environment:
+
+```bash
+git clone https://github.com/sgavriil01/TeamFlow.git
+cd TeamFlow
+poetry install
+./setup-dev.sh
+```
+
+This script will:
+- Create a secure `.env` file from the template
+- Install pre-commit security hooks
+- Run security scans (Bandit & Safety)
+- Verify code quality and tests
+
+### Manual Installation
 
 1. Clone the repository
 2. Install dependencies:
@@ -64,11 +89,29 @@ poetry run ruff check .
 poetry run mypy .
 ```
 
+### Security Checks
+```bash
+poetry run bandit -r teamflow/
+poetry run safety check
+```
+
 ### Database Migrations
 ```bash
 poetry run alembic revision --autogenerate -m "Description"
 poetry run alembic upgrade head
 ```
+
+## 🛡️ Security
+
+This project follows security best practices:
+
+- **Environment Variables**: All secrets stored in `.env` (never committed)
+- **Automated Scanning**: GitHub Actions run security checks on every commit
+- **Pre-commit Hooks**: Prevent insecure code from being committed
+- **Dependency Monitoring**: Regular checks for known vulnerabilities
+- **Secret Detection**: Prevents accidental credential commits
+
+See [`SECURITY.md`](SECURITY.md) for detailed security policies and procedures.
 
 ## Project Structure
 
