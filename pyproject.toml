@@ -28,6 +28,9 @@ vcrpy = "^5.1.0"
 ruff = "^0.1.6"
 mypy = "^1.7.1"
 coverage = "^7.3.2"
+bandit = "^1.8.6"
+safety = "^3.6.0"
+pre-commit = "^4.3.0"
 
 [build-system]
 requires = ["poetry-core"]
@@ -48,6 +51,14 @@ select = [
 ignore = ["E501"]  # line too long
 
 [tool.ruff.isort]
+known-first-party = ["teamflow"]
+
+[tool.bandit]
+exclude_dirs = ["tests", "venv", ".venv"]
+skips = ["B101"]  # Skip assert_used test
+
+[tool.bandit.assert_used]
+skips = ["*_test.py", "*/test_*.py"]
 known-first-party = ["teamflow"]
 
 [tool.mypy]

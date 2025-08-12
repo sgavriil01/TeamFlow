@@ -49,10 +49,18 @@ coverage.xml
 .pytest_cache/
 cover/
 
-# Virtual environments
+# Environment variables and secrets
 .env
 .env.local
 .env.*.local
+.env.production
+.env.staging
+.env.development
+*.env
+!.env.example
+!.env.template
+
+# Virtual environments
 venv/
 ENV/
 env/
@@ -78,3 +86,23 @@ Thumbs.db
 cassettes/
 .mypy_cache/
 .ruff_cache/
+
+# Security and sensitive files
+*.pem
+*.key
+*.p12
+*.pfx
+secrets.json
+config/local.json
+.secrets/
+credentials/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Temporary files
+*.tmp
+*.temp
+.cache/

@@ -1,12 +1,12 @@
 """Main FastAPI application."""
 
-from fastapi import FastAPI
+import os
+from pathlib import Path
+
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
-from fastapi import Request
-import os
-from pathlib import Path
 
 # Import routers (we'll create these later)
 # from teamflow.api.v1 import health, github, jira, slack
@@ -37,7 +37,7 @@ templates = Jinja2Templates(directory=str(templates_dir))
 async def read_root(request: Request):
     """Root endpoint with basic info."""
     return templates.TemplateResponse(
-        "index.html", 
+        "index.html",
         {"request": request, "title": "TeamFlow - AI Project Management Assistant"}
     )
 
@@ -61,10 +61,16 @@ async def health_check():
 
 if __name__ == "__main__":
     import uvicorn
+
+    from teamflow.core.config import settings
+
+    # Use localhost for development, configurable for production
+    host = "127.0.0.1" if settings.debug else "0.0.0.0"  # nosec B104
+
     uvicorn.run(
         "teamflow.main:app",
-        host="0.0.0.0",
+        host=host,
         port=8000,
-        reload=True,
-        log_level="info"
+        reload=settings.debug,
+        log_level=settings.log_level.lower()
     )
